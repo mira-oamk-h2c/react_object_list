@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Object List</title>
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="item.js"></script>
+  <style>
+    table,
+    td {
+      text-align: left;
+      padding-right: 1em;
+    }
+  </style>
+
+  <!-- Don't use this in production: -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    class List extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { items: [] };
+      }
+
+      componentDidMount() {
+        const temp = Array();
+        temp.push(new Item('Coffee', 1));
+        temp.push(new Item('Cookies', 5));
+        temp.push(new Item('Milk', 2));
+
+
+        this.setState({
+          items: temp,
+        });
+      }
+
+      render() {
+        const { items } = this.state;
+
+        return (
+          <>
+            <h3>Shopping list</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map(item => (
+                  <tr key={item.name}>
+                    <td>{item.name}</td>
+                    <td>{item.amount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        );
+      }
+    }
+
+    ReactDOM.render(<List />, document.getElementById('root'));
+
+  </script>
+
+</body>
+
+</html>
